@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^$ /panel/index.php [L]
+RewriteCond $1 !^(index\.php|assets/admin|uploads|\.txt|favicon\.ico)
+RewriteRule ^(.*)$ /panel/index.php/$1 [L]
