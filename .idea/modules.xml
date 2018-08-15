@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/../mssb/.idea/mssb.iml" filepath="$PROJECT_DIR$/../mssb/.idea/mssb.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ornekler/.idea/ornekler.iml" filepath="$PROJECT_DIR$/../ornekler/.idea/ornekler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/panel.iml" filepath="$PROJECT_DIR$/.idea/panel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../parlayan/.idea/parlayan.iml" filepath="$PROJECT_DIR$/../parlayan/.idea/parlayan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../parlayanlaravel/.idea/parlayanlaravel.iml" filepath="$PROJECT_DIR$/../parlayanlaravel/.idea/parlayanlaravel.iml" />
       <module fileurl="file://$PROJECT_DIR$/../test/.idea/test.iml" filepath="$PROJECT_DIR$/../test/.idea/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../twitterprj/.idea/twitterprj.iml" filepath="$PROJECT_DIR$/../twitterprj/.idea/twitterprj.iml" />
     </modules>

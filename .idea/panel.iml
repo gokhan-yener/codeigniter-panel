@@ -42,5 +42,7 @@
     <orderEntry type="module" module-name="twitterprj" />
     <orderEntry type="module" module-name="mssb" />
     <orderEntry type="module" module-name="ornekler" />
+    <orderEntry type="module" module-name="parlayan" />
+    <orderEntry type="module" module-name="parlayanlaravel" />
   </component>
 </module>
