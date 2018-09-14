@@ -7,6 +7,8 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->viewFolder = "admin/".strtolower(__CLASS__);
+        $this->load->model("admin/".__CLASS__."_model");
         $this->load->model("admin/User_model");
         $this->load->helper(array('url', 'language'));
         $this->load->model("Ion_auth_model");
@@ -28,7 +30,7 @@ class User extends CI_Controller
 
 
         $this->load->vars($data);
-        $this->load->view('admin/user/home');
+        $this->load->view("{$this->viewFolder}/home");
     }
 
     public function user_add()
@@ -40,7 +42,7 @@ class User extends CI_Controller
         $data->category2 = "Kullanıcı Ekle";
 
         $this->load->vars($data);
-        $this->load->view('admin/user/home');
+        $this->load->view("{$this->viewFolder}/home");
     }
 
     public function user_save()
@@ -50,7 +52,7 @@ class User extends CI_Controller
         $tables = $this->config->item('tables', 'ion_auth');
         $identity_column = $this->config->item('identity', 'ion_auth');
         $this->data['identity_column'] = $identity_column;
-
+        $this->load->library("form_validation");
         // validate form input
         $this->form_validation->set_rules('first_name',"Ad", 'trim|required');
         $this->form_validation->set_rules('last_name', "Soyad", 'trim|required');
@@ -84,14 +86,14 @@ class User extends CI_Controller
             // check to see if we are creating the user
             // redirect them back to the admin page
             setUserdataMessage("success",$this->ion_auth->messages());
-            redirect("admin/user");
+            redirect("{$this->viewFolder}");
         }
         else
         {
 
 
             setFlashMessage("danger",validation_errors());
-            redirect("admin/user/user_add");
+            redirect("{$this->viewFolder}/user_add");
 
         }
     }
@@ -117,7 +119,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false){
 
             setFlashMessage("danger",validation_errors());
-            redirect("admin/user/user_add");
+            redirect("{$this->viewFolder}/user_add");
         }else{
 
             $email = setPassword(trim($this->input->post("email")));
@@ -150,10 +152,10 @@ class User extends CI_Controller
 
             if($result > 0){
                 setUserdataMessage("success","insert");
-                redirect("admin/user");
+                redirect("{$this->viewFolder}");
             }else{
                 setFlashMessage("danger","Kaydedilmede hata oluştu !!!");
-                redirect("admin/user/user_add");
+                redirect("{$this->viewFolder}/user_add");
             }
         }
     }*/
@@ -186,7 +188,7 @@ class User extends CI_Controller
         }
 
         $this->load->vars($data);
-        $this->load->view("admin/user/home");
+        $this->load->view("{$this->viewFolder}/home");
     }
 
     public function _get_csrf_nonce()
@@ -215,7 +217,7 @@ class User extends CI_Controller
         if ($id === 0) {
 
             setUserdataMessage("warning", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/user");
+            redirect("{$this->viewFolder}");
         }
 
         $this->data['title'] = $this->lang->line('edit_user_heading');
@@ -284,7 +286,7 @@ class User extends CI_Controller
                     // redirect them back to the admin page if admin, or to the base url if non admin
 
                     setUserdataMessage("success", $this->ion_auth->messages());
-                    redirect("admin/user/user_edit/$id");
+                    redirect("{$this->viewFolder}/user_edit/$id");
 
                 }
                 else
@@ -292,13 +294,13 @@ class User extends CI_Controller
                     // redirect them back to the admin page if admin, or to the base url if non admin
 
                     setFlashMessage("warning", $this->ion_auth->errors());
-                    redirect("admin/user/user_edit/$id");
+                    redirect("{$this->viewFolder}/user_edit/$id");
 
                 }
 
             }else{
                 setFlashMessage("danger", validation_errors());
-                redirect("admin/user/user_edit/$id");
+                redirect("{$this->viewFolder}/user_edit/$id");
             }
         }
 
@@ -344,7 +346,7 @@ class User extends CI_Controller
           if ($this->form_validation->run() == false){
 
               setFlashMessage("danger",validation_errors());
-              redirect("admin/user/user_edit/".$user_id);
+              redirect("{$this->viewFolder}/user_edit/".$user_id);
 
           }else{
 
@@ -384,10 +386,10 @@ class User extends CI_Controller
 
               if($result > 0){
                   setUserdataMessage("success","update");
-                  redirect("admin/user/user_edit/".$user_id);
+                  redirect("{$this->viewFolder}/user_edit/".$user_id);
               }else{
                   setFlashMessage("danger","Kaydedilmede hata oluştu !!!");
-                  redirect("admin/user/user_edit/".$user_id);
+                  redirect("{$this->viewFolder}/user_edit/".$user_id);
               }
           }
       }*/
@@ -398,7 +400,7 @@ class User extends CI_Controller
         if ($recordId === 0) {
 
             setUserdataMessage("error", "delete");
-            redirect("admin/user");
+            redirect("{$this->viewFolder}");
         }
 
         $result = $this->User_model->user_delete(array("id" => $recordId));
@@ -411,7 +413,7 @@ class User extends CI_Controller
             setUserdataMessage("error", "deleteError");
 
         }
-        redirect("admin/user");
+        redirect("{$this->viewFolder}");
     }
 
 

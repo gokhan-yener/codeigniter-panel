@@ -7,9 +7,14 @@
  */
 class Contact extends CI_Controller{
 
+    public $mainViewFolder;
+    public $mainViewSubFolder;
     public function __construct()
     {
         parent::__construct();
+        $this->mainView = "admin";
+        $this->mainViewSubFolder = __CLASS__;
+
         $this->load->model("admin/contact_model");
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -47,7 +52,7 @@ class Contact extends CI_Controller{
 
 
         $this->load->vars($data);
-        $this->load->view('admin/contact/home');
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function unread()
@@ -70,7 +75,7 @@ class Contact extends CI_Controller{
         $id = (int)$recordId;
         if($id==0){
             setUserdataMessage("error","Hatalı sayfa !!!");
-            redirect("admin/contact");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $data = new  stdClass();
@@ -107,7 +112,7 @@ class Contact extends CI_Controller{
             redirect("admin/contact");
         }else{
             setFlashMessage("danger","Güncelleme hatası oluştu");
-            redirect("admin/contact/".$id);
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}/".$id);
         }
     }
 
@@ -146,7 +151,7 @@ class Contact extends CI_Controller{
             redirect("admin/contact");
         }else{
             setUserdataMessage("error","Mesaj gönderme hatası");
-            redirect("admin/contact");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
     }
 }

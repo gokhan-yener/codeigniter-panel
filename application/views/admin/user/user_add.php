@@ -4,6 +4,7 @@ if($message):
     echo $message;
 endif;
 ?>
+
 <div class="col-md-8">
     <form id="LoginValidation" action="<?php echo base_url("admin/user/user_save")?>" method="POST" >
         <div class="card ">
@@ -20,7 +21,7 @@ endif;
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="name" class="bmd-label-floating "> Adı *</label>
-                            <input type="text" value=""  class="form-control" id="name" autofocus required name="first_name">
+                        <input type="text" name="first_name" value="<?php echo set_value("first_name"); ?>"  class="form-control" id="name" autofocus required >
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -41,7 +42,7 @@ endif;
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="email" class="bmd-label-floating "> Eposta  </label>
-                            <input type="text"  value="" name="email"  class="form-control" id="email" maxlength="250" required >
+                            <input type="text"  value="" name="email" value="<?php echo set_value("email"); ?>"  class="form-control" id="email" maxlength="250" required >
                         </div>
                     </div>
                 </div>

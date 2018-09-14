@@ -3,19 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-/**
- * Created by PhpStorm.
- * User: gokhan
- * Date: 24.07.2018
- * Time: 23:43
- */
 class Content_model extends CI_Model
 {
 
+    private $tableName = "content";
     function __construct()
     {
         parent::__construct();
-        $this->tableName = "content";
+
     }
 
     public function getRows()

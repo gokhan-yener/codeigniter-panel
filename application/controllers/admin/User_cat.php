@@ -7,6 +7,8 @@ class User_cat extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->mainView = "admin";
+        $this->mainViewSubFolder = __CLASS__;
         $this->load->model("admin/user_cat_model");
         $this->load->library(array( 'form_validation'));
         $this->load->helper(array('url', 'language'));
@@ -28,7 +30,7 @@ class User_cat extends CI_Controller
 
 
         $this->load->vars($data);
-        $this->load->view('admin/user_cat/home');
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function user_cat_save()
@@ -41,7 +43,7 @@ class User_cat extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             setFlashMessage("danger", validation_errors());
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         } else {
 
 
@@ -53,10 +55,10 @@ class User_cat extends CI_Controller
 
             if ($result > 0) {
                 setUserdataMessage("success", "insert");
-                redirect("admin/user_cat");
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}");
             } else {
                 setFlashMessage("danger", "Kaydedilmede hata oluştu !!!");
-                redirect("admin/user_cat");
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}");
             }
         }
     }
@@ -68,7 +70,7 @@ class User_cat extends CI_Controller
         if ($id === 0) {
 
             setUserdataMessage("warning", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $data = new stdClass();
@@ -83,11 +85,11 @@ class User_cat extends CI_Controller
 
         if (!isset($data->row)) {
             setUserdataMessage("warning", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $this->load->vars($data);
-        $this->load->view("admin/user_cat/home");
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function user_cat_update()
@@ -98,7 +100,7 @@ class User_cat extends CI_Controller
         if ($user_cat_id === 0) {
 
             setUserdataMessage("warning", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $this->load->library("form_validation");
@@ -109,7 +111,7 @@ class User_cat extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             setFlashMessage("danger", validation_errors());
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
         } else {
 
@@ -124,10 +126,10 @@ class User_cat extends CI_Controller
 
             if ($result > 0) {
                 setUserdataMessage("success", "update");
-                redirect("admin/user_cat");
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}");
             } else {
                 setFlashMessage("danger", "Kaydedilmede hata oluştu !!!");
-                redirect("admin/user_cat");
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}");
             }
         }
     }
@@ -138,7 +140,7 @@ class User_cat extends CI_Controller
         if ($recordId === 0) {
 
             setUserdataMessage("error", "delete");
-            redirect("admin/user_cat");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $result = $this->user_cat_model->user_cat_delete(array("id" => $recordId));
@@ -151,7 +153,7 @@ class User_cat extends CI_Controller
             setUserdataMessage("error", "deleteError");
 
         }
-        redirect("admin/user_cat");
+        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
     }
 
 

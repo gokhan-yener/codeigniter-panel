@@ -26,13 +26,10 @@
 
 
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/default/css/font-awesome.min.css">
 
-
-    <link rel="stylesheet"
-          href="<?php echo base_url(); ?>assets/admin/default/css/material-dashboard.min790f.css?v=2.0.1">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/default/css/material-dashboard.min790f.css?v=2.0.1">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/default/css/custom.css">
 
 </head>

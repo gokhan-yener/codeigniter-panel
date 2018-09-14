@@ -29,6 +29,16 @@ function deleteButtonForList($url)
 
 }
 
+function imageButtonForList($url)
+{
+
+    return '<a class="imageBtn" href="'.base_url($url).'">
+                                <button type="button" data-toggle="tooltip" data-placement="top" title="Resim ekle" class="btn btn-info btn-fab btn-round btn-sm">
+                                    <i class="material-icons">add_photo_alternate</i>
+                                </button>
+                            </a>';
+
+}
 
 
 function switchIsactiveButton($id,$isActive,$url)

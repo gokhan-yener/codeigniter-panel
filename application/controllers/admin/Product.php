@@ -13,6 +13,8 @@ class Product extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->mainView = "admin";
+        $this->mainViewSubFolder = __CLASS__;
         $this->load->model("admin/product_model");
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
@@ -32,7 +34,7 @@ class Product extends CI_Controller
 
 
         $this->load->vars($data);
-        $this->load->view('admin/product/home');
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function product_add()
@@ -48,7 +50,7 @@ class Product extends CI_Controller
 
 
         $this->load->vars($data);
-        $this->load->view("admin/product/home");
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function product_save()
@@ -64,7 +66,7 @@ class Product extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             setFlashMessage("danger", validation_errors());
-            redirect("admin/product/product_add");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}/product_add");
 
         } else {
 
@@ -91,7 +93,7 @@ class Product extends CI_Controller
                     $this->load->helper("io_helper");
                     checkProductsDirectory();
                     $config['upload_path'] = 'uploads/products';
-                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
                     $config['max_size'] = 4096;
                     $config['encrypt_name'] = TRUE;
                     $config['file_ext_tolower'] = TRUE;
@@ -108,7 +110,7 @@ class Product extends CI_Controller
                         }
 
                         setUserdataMessage("warning", "Resim Yüklenemedi yanlız Ürün eklendi<br>$error");
-                        redirect("admin/product");
+                        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
                     } else {
 
@@ -136,19 +138,19 @@ class Product extends CI_Controller
                             unlink(".uploads/products/" . $uploadData["file_name"]);
                         }
 
-                        redirect("admin/product");
+                        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
                     }
                 } else {
 
                     setUserdataMessage("success", "insert");
-                    redirect("admin/product");
+                    redirect("{$this->mainView}/{$this->mainViewSubFolder}");
                 }
 
             } else {
 
                 setUserdataMessage("error", "insertError");
-                redirect("admin/product");
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}");
             }
 
 
@@ -181,7 +183,7 @@ class Product extends CI_Controller
         $data->categories = $this->product_model->getCategories();
 
         $this->load->vars($data);
-        $this->load->view("admin/product/home");
+        $this->load->view("{$this->mainView}/{$this->mainViewSubFolder}/home");
     }
 
     public function product_update()
@@ -192,7 +194,7 @@ class Product extends CI_Controller
 
         if ($product_id === 0) {
             setUserdataMessage("error", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/product");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
 
         $this->load->library("form_validation");
@@ -215,7 +217,7 @@ class Product extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             setFlashMessage("danger", validation_errors());
-            redirect("admin/product/product_edit/" . $product_id);
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}/product_edit/" . $product_id);
 
         } else {
 
@@ -260,7 +262,7 @@ class Product extends CI_Controller
                         }
 
                         setUserdataMessage("warning", "Resim Yüklenemedi yanlız Ürün güncellendi<br> $error");
-                        redirect("admin/product");
+                        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
                     } else {
 
@@ -298,19 +300,19 @@ class Product extends CI_Controller
                             setUserdataMessage("warning", "Bilgiler güncellendi fakat resim yüklemede hata oluştu");
                         }
 
-                        redirect("admin/product");
+                        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
                     }
 
 
                 } else {
                     setUserdataMessage("success", "update");
-                    redirect("admin/product");
+                    redirect("{$this->mainView}/{$this->mainViewSubFolder}");
                 }
 
             } else {
                 setFlashMessage("danger", "updateError");
-                redirect("admin/product/product_edit/" . $product_id);
+                redirect("{$this->mainView}/{$this->mainViewSubFolder}/product_edit/" . $product_id);
             }
         }
     }
@@ -320,7 +322,7 @@ class Product extends CI_Controller
         $recordId = (int)$id;
         if ($recordId === 0) {
             setUserdataMessage("error", "Hatalı Sayfa işlemi !!!");
-            redirect("admin/product");
+            redirect("{$this->mainView}/{$this->mainViewSubFolder}");
         }
         $imageName = $this->product_model->getOldImage(array("id" => $recordId))->img_id;
 
@@ -335,10 +337,11 @@ class Product extends CI_Controller
             setUserdataMessage("error", "deleteError");
 
         }
-        redirect("admin/product");
+        redirect("{$this->mainView}/{$this->mainViewSubFolder}");
 
     }
 
+    //Ajax-----------
 
     public function isActiveSetter()
     {
@@ -362,6 +365,24 @@ class Product extends CI_Controller
         } else {
             echo json_encode(array('result' => FALSE));
         }
+
+    }
+
+    public function rankSetter()
+    {
+        if ($this->input->is_ajax_request() == FALSE) {
+
+            echo json_encode(array('result' => FALSE));
+        }
+        parse_str($this->input->post("data"),$order);
+
+        $items = $order["ord"];
+
+        foreach ($items as $rank => $id) {
+            $where = array("id"=>$id,"rank != " => $rank);
+            $this->db->where($where)->update("product", array("rank" => $rank));
+        }
+        echo json_encode(array('result' => TRUE));
 
     }
 

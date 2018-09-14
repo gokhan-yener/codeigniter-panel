@@ -15,21 +15,21 @@ endif;
             </div>
             <div class="card-body ">
                 <div class="form-group">
-                    <label for="title" class="bmd-label-floating "> Başlık *</label>
-                    <input type="text" class="form-control" id="exampleEmails" maxlength="250" autofocus required="true" name="title">
+                    <label for="title" class="bmd-label-floating "> Başlık1 *</label>
+                    <input type="text" class="form-control" value="<?php echo set_value('title'); ?>" id="exampleEmails" maxlength="250" autofocus required="true" name="title">
                 </div>
 
 
                 <div class="form-group">
                     <label for="detail" class="bmd-label-floating "> İçerik *</label>
-                    <textarea id="editor1" class="ckeditor" name="detail" required="true"  >
+                    <textarea id="editor1"  class="ckeditor" name="detail" required="true"  ><?php echo set_value('detail'); ?>
 	            </textarea>
                 </div>
 
 
                 <div class="form-group">
                     <div class="col-6">
-                        <select class="selectpicker" name="category_id"  data-style="btn select-with-transition" title="Single Select">
+                        <select class="selectpicker" name="category_id"   data-style="btn select-with-transition" title="Single Select">
                             <option disabled selected>Kategori</option>
                             <option value="1" >Matematik</option>
                           <?php foreach($categories as $row){?>

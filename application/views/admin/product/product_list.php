@@ -20,6 +20,7 @@
                     <thead>
 
                     <tr>
+                        <th class="col-xs-1"><i class="fa fa-reorder"></i></th>
                         <th>No</th>
                         <th class="disabled-sorting text-left">Resim(varsa)</th>
                         <th>Başlık</th>
@@ -35,11 +36,12 @@
 
                     </thead>
 
-                    <tbody>
+                    <tbody class="sortable" data-url = "<?php echo base_url("admin/product/rankSetter"); ?>">
                     <?php
                     $this->load->helper("thema_helper");
                     foreach ($getAll as $row): ?>
-                    <tr>
+                    <tr id="ord-<?php echo $row->id; ?>">
+                        <td class="disabled-sorting"><i class="fa fa-reorder"></i></td>
                         <td><?php echo $row->id; ?></td>
                         <td class="col-md-2">
 

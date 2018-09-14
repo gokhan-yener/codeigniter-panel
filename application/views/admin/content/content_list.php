@@ -8,8 +8,9 @@
          Excel Çıktı Al
     </a>
     <form action="<?php echo base_url(); ?>admin/content/excelUpload" name="frm" method="post" enctype="multipart/form-data">
-        <button type="submit" class="btn btn-info pull-right">Excel Ekle</button>
-        <input type="file" name="excel" placeholder="Excel Yükle" class="btn btn-round btn-success btn-file pull-right">
+        <button type="submit" id="addBtn" disabled  class="btn btn-info pull-right"> Ekle</button>
+        <a href="#" id="filebtn" class="btn btn-primary btn-xs pull-right filebtn">Excel için dosya seç</a>
+        <input type="file" name="excel" style="display: none"  placeholder="Excel Yükle" class="btn btn-round btn-success btn-file pull-right">
 
     </form>
     <div class="card">
@@ -29,6 +30,7 @@
                     <thead>
 
                     <tr>
+                    <th class="col-xs-1"><i class="fa fa-reorder"></i></th>
                         <th class="col-xs-1">No</th>
                         <th>Başlık</th>
                         <th>Slug</th>
@@ -40,11 +42,12 @@
 
                     </thead>
 
-                    <tbody>
+                    <tbody class="sortable" data-url = "<?php echo base_url("admin/content/rankSetter"); ?>">
                     <?php
                     $this->load->helper("thema_helper");
                     foreach ($getAll as $row): ?>
-                    <tr>
+                    <tr id="ord-<?php echo $row->id; ?>">
+                        <td><i class="fa fa-reorder"></i></td>
                         <td><?php echo $row->id; ?></td>
                         <td><?php echo mb_substr($row->title,0,100); ?></td>
                         <td><?php echo $row->slug; ?></td>
@@ -57,6 +60,8 @@
                         <td class="text-right">
                             <?php echo editButtonForList("admin/content/content_edit/$row->id"); ?>
                             <?php echo deleteButtonForList("admin/content/content_delete/$row->id"); ?>
+                            <?php echo imageButtonForList("admin/content/content_image/$row->id"); ?>
+
                         </td>
                     </tr>
                     <?php endforeach; ?>

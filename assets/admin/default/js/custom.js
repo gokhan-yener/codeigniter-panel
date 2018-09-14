@@ -1,8 +1,36 @@
 $(document).ready(function () {
 
+    $(".sortable").sortable();
+
+    $( ".sortable" ).on( "sortupdate", function( event, ui ) {
+        var data = $(this).sortable("serialize");
+        var url = $(this).data("url");
+
+        $.ajax({
+            url:url,
+            method:"POST",
+            data:{'data':data},
+            dataType:'json',
+            success:function (response) {
+
+                if(response.result == true){
+                    demo.showNotification('top','right',"Sıralama Güncellendi",2);
+                }else{
+                    demo.showNotification('top','right',"Hata Oluştu",3);
+                }
+            },
+            error:function (err) {
+                demo.showNotification('top','right',"Hata Oluştu",3);
+            }
+
+        })
 
 
-$(".isActive").change(function () {
+
+
+    });
+
+    $(".isActive").change(function () {
 
     var dataId = $(this).attr("dataId");
     var url = $(this).attr("dataUrl");
@@ -27,8 +55,11 @@ $(".isActive").change(function () {
     })
 });
 
-
     $('.magnific').magnificPopup({type:'image'});
+
+
+
+
 });
 
 

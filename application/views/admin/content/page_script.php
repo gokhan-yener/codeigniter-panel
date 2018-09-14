@@ -8,6 +8,7 @@
 
 <!-- DataTables.net Plugin, full documentation here: https://datatables.net/-->
 <script src="<?php echo base_url();?>assets/admin/default/js/plugins/jquery.datatables.js"></script>
+<script src="<?php echo base_url();?>assets/admin/_scripts/dropzone.js"></script>
 
 
 <script type="text/javascript">
@@ -23,10 +24,15 @@
             language: {
                 search: "_INPUT_",
                 searchPlaceholder: "Arama",
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                "url": "<?php echo base_url()?>assets/admin/_scripts/Turkish.json"
             }
 
         });
+
+$("#filebtn").on("click",function () {
+    $(".btn-file").trigger("click");
+    $("#addBtn").prop( "disabled", false );
+});
 
     });
 
